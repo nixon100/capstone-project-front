@@ -1,12 +1,15 @@
 import React from "react";
 
-const SplitWebcode = () => {
+const SplitWebcode = (props) => {
+  const data = props.data[props.index];
+  const subData = props.subdata[props.index];
+
   return (
     <div class="Body_body__wrapper__6cj6C">
       <div class="Navbar_navbar__container__3Q3Zl">
         <div class="sc-jTrPJq gFWlwy">
           <div class="sc-jTrPJq gFWlwy">
-            <button title="< Back" class="NavButtons_add__button__q_2E5">
+            <button title="< Back" class="NavButtons_add__button__q_2E5" onClick={() => props.setClick(false)}>
               &lt; Back
             </button>
           </div>
@@ -17,15 +20,15 @@ const SplitWebcode = () => {
           <div class="col-12 row px-0 mx-2 d-flex align-items-center">
             <div class="taskContainer sideBox1 flexCont w-100 mt-0 mb-3 mx-2 py-3">
               <div class="mx-2">
-                <div class="title weight-500">Nixon Paul</div>
+                <div class="title weight-500">{data.username}</div>
                 <div class="row d-flex align-items-center secondaryGreyTextColor mx-1">
-                  <div class="mx-1">(B48WD Tamil- First Webcode)</div>
-                  <div class="mx-1">Nationalize API</div>
+                  <div class="mx-1">({data.batch}- {data.desc})</div>
+                  <div class="mx-1">{data.projectName}</div>
                 </div>
               </div>
               <div class="mx-2">
                 <div class="mx-1 secondaryGreyTextColor">
-                  submitted June 14th 2023, 12:22 pm
+                {data.status}
                 </div>
                 <div class="ml-3 mr-1 d-flex align-self-end justify-content-end">
                   <div class="marktag mx-1 px-3 rounded">3</div>
@@ -38,19 +41,19 @@ const SplitWebcode = () => {
         <div class="ml-4 mt-2 col-6 px-0 taskContainer">
           <div class="flexCont my-2 mx-4"style={{ alignItems: "center" }}>
             <div class="my-2 mx-2">
-              <div class="title weight-500">Nixon Paul</div>
+              <div class="title weight-500">{data.username}</div>
               <div class="row d-flex align-items-center  mx-1 secondaryGreyTextColor">
-                <div class="mx-1">(B48WD Tamil- First Webcode)</div>
-                <div class="mx-1">Nationalize API</div>
+                <div class="mx-1">({data.batch}- {data.desc})</div>
+                <div class="mx-1">{data.projectName}</div>
               </div>
             </div>
             <div>
               <div class="ml-3 mr-1 d-flex align-self-end justify-content-end">
-                <div class="marktag mx-1 px-3 rounded">3</div>{" "}
+                <div class="marktag mx-1 px-3 rounded">{data.mark}</div>{" "}
                 <div class="tasktag px-2 rounded">webCode</div>
               </div>
               <div class="mx-1 secondaryGreyTextColor">
-                submitted on June 14th 2023, 12:22 pm
+              {data.status}
               </div>
             </div>
           </div>
@@ -60,8 +63,7 @@ const SplitWebcode = () => {
               <div class="mx-2 mt-0 mb-3 py-3 px-2 rounded descriptionStudents">
                 <div class="smooth-scroll list-unstyled">
                   <p>
-                    Implement the Nationalize API using async/await with fetch.
-                  </p>
+                  {data.description}                  </p>
                   <p>
                     <strong>Constraints:</strong>
                   </p>
@@ -97,8 +99,13 @@ const SplitWebcode = () => {
                   <p>
                     <strong>Any basic hints to solve?</strong>
                   </p>
-                  <p>https://nationalize.io/</p>
-                  <p>https://nationalize.io/#responses</p>
+                  {/* <p>https://nationalize.io/</p>
+                  <p>https://nationalize.io/#responses</p> */}
+                    <>
+                      {data.websites.map((link) => (
+                        <p key={link._id}>{link.url}</p>
+                      ))}
+                    </>
                   <p>
                     <strong>Terms and Conditions?</strong>
                   </p>
@@ -151,7 +158,7 @@ const SplitWebcode = () => {
                     rel="noreferrer"
                   >
                     {" "}
-                    https://nixon100.github.io/webcode/{" "}
+                    {subData.frontEndDeployedUrl}{" "}
                   </a>
                 </td>
               </tr>
@@ -165,7 +172,7 @@ const SplitWebcode = () => {
                     rel="noreferrer"
                   >
                     {" "}
-                    https://github.com/nixon100/webcode{" "}
+                    {subData.frontEndSourceCode}{" "}
                   </a>
                 </td>
               </tr>
@@ -176,10 +183,7 @@ const SplitWebcode = () => {
               <div class="col-12">
                 <div class="mx-2 mt-3">Comments:</div>
                 <div class="mx-2 mt-0 mb-3 py-3 px-2 rounded commentsstudent">
-                  * The code flow is not good because. implement query params
-                  Ggetting the name via input is considered a good practice * In
-                  JavaScript, it is recommended to avoid using the var keyword
-                  and instead use let and const for variable declarations.
+                {subData.comments}
                 </div>
               </div>
             </div>

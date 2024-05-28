@@ -1336,12 +1336,12 @@ function App() {
         </div>
       </div> */}
   {/* <SplitTask/> */}
-  {/* <Webcode/> */}
+  <Webcode/>
   {/* <SplitWebcode/> */}
   {/* <CapstonePage/> */}
   {/* <SplitCapstone/> */}
   {/* <Dashboard/> */}
-  <MockInterview/>
+  {/* <MockInterview/> */}
     </div>
   );
 }

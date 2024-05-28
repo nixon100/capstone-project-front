@@ -1,13 +1,91 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
-const SplitCapstone = () => {
+const SplitCapstone = (props) => {
+  console.log(props.data[props.index].username);
+  const data = props.data[props.index];
+  console.log(data.websites);
+  const [fscode, setFscode] = useState("");
+  const [fdcode, setFdcode] = useState("");
+  const [bscode, setBscode] = useState("");
+  const [bdcode, setBdcode] = useState("");
+  const [comments,setComments] =useState("");
+
+
+ const handleSubmit = async (event)=>{
+  event.preventDefault();
+     const formData = {
+       
+        frontEndSourceCode: fscode,
+        frontEndDeployedUrl: fdcode,
+        backEndSourceCode:bscode,
+        backEndDeployedUrl:bdcode,
+        comments: comments,
+      };
+      console.log(formData);
+      try {
+            const response = await axios.post(
+              "http://localhost:8800/api/capstone/submission",
+              formData
+            );
+            console.log(response.data);
+            return response.data;
+          } catch (error) {
+            console.error(error);
+            throw error;
+          }
+
+  // const formData = new FormData();
+  // formData.append("Fscode", fscode);
+  // formData.append("Fdcode", fdcode);
+  // formData.append("Bscode", bscode);
+  // formData.append("Bdcode", bdcode);
+// console.log(formData);
+  // axios.post("/submit-form", formData)
+  //   .then((response) => {
+  //     console.log(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+ }
+
+    // const handleSubmit = async (hotelData) => {
+      // const formData = {
+      //   name: form.elements['name'].value,
+      //   location: form.elements['location'].value,
+      //   frontEndSourceCode: form.elements['front-end-source-code'].value,
+      //   frontEndDeployedUrl: form.elements['front-end-deployed-url'].value,
+      //   backEndSourceCode: form.elements['back-end-source-code'].value,
+      //   backEndDeployedUrl: form.elements['back-end-deployed-url'].value,
+      //   comments: form.elements['comments'].value,
+      // };
+    //   try {
+    //     const response = await axios.post(
+    //       "https://your-backend-url.com/api/hotels",
+    //       hotelData
+    //     );
+    //     console.log(response.data);
+    //     return response.data;
+    //   } catch (error) {
+    //     console.error(error);
+    //     throw error;
+    //   }
+    // };
+  
   return (
     <div class="Body_body__box__Y49P-">
       <div class="Body_body__wrapper__6cj6C">
         <div class="Navbar_navbar__container__3Q3Zl">
           <div class="sc-jTrPJq gFWlwy">
             <div class="sc-jTrPJq gFWlwy">
-              <button title="< Back" class="NavButtons_add__button__q_2E5">
+              <button
+                title="< Back"
+                class="NavButtons_add__button__q_2E5"
+                onClick={() => props.setClick(false)}
+              >
                 &lt; Back
               </button>
             </div>
@@ -18,18 +96,18 @@ const SplitCapstone = () => {
             <div class="col-12 row px-0 mx-2 d-flex align-items-center">
               <div class="taskContainer sideBox1 flexCont w-100 mt-0 mb-3 mx-2 py-3">
                 <div class="mx-2">
-                  <div class="title weight-500">Nixon Paul</div>
+                  <div class="title weight-500">{data.username}</div>
                   <div class="row d-flex align-items-center secondaryGreyTextColor mx-1">
                     <div class="mx-1">
-                      (B48WD Tamil- Final Capstone Project)
+                      ({data.batch}- {data.desc})
                     </div>
-                    <div class="mx-1">Zendesk clone</div>
+                    <div class="mx-1">{data.projectName}</div>
                   </div>
                 </div>
                 <div class="mx-2">
                   <div class="ml-3 mr-1 d-flex align-self-end justify-content-end">
                     <div class="secondaryGreyTextColor mx-1 px-1 rounded">
-                      Yet to be graded
+                      {data.status}
                     </div>
                     <div class="tasktag px-2 rounded">capstone</div>
                   </div>
@@ -40,16 +118,18 @@ const SplitCapstone = () => {
           <div class="ml-4 mt-2 col-6 px-0 taskContainer">
             <div class="flexCont my-2 mx-4" style={{ alignItems: "center" }}>
               <div class="my-2 mx-2">
-                <div class="title weight-500">Nixon Paul</div>
+                <div class="title weight-500">{data.username}</div>
                 <div class="row d-flex align-items-center  mx-1 secondaryGreyTextColor">
-                  <div class="mx-1">(B48WD Tamil- Final Capstone Project)</div>
-                  <div class="mx-1">Zendesk clone</div>
+                  <div class="mx-1">
+                    ({data.batch}- {data.desc})
+                  </div>
+                  <div class="mx-1">{data.projectName}</div>
                 </div>
               </div>
               <div>
                 <div class="ml-3 mr-1 d-flex align-self-end justify-content-end">
                   <div class="secondaryGreyTextColor mx-1 px-1 rounded">
-                    Yet to be graded
+                    {data.status}
                   </div>{" "}
                   <div class="tasktag px-2 rounded">capstone</div>
                 </div>
@@ -61,22 +141,20 @@ const SplitCapstone = () => {
                 <div class="mx-2 mt-0 mb-3 py-3 px-2 rounded descriptionStudents">
                   <div class="smooth-scroll list-unstyled">
                     <p>
-                      To identify and implement the Capstone project as the
-                      title given below by meeting all the necessary
-                      requirements.
+                     {data.description}
                     </p>
                     <p>
                       <strong>Task Title: </strong>
                       <span style={{ color: "rgb(235,107,86)" }}>
-                        <strong>Zendesk clone</strong>
+                        <strong>{data.projectName}</strong>
                       </span>
                     </p>
                     <p>
                       <strong>Any specifications on the design?</strong>
                     </p>
-                    <p>Front-end: Reactjs</p>
-                    <p>Back-end: Nodejs</p>
-                    <p>Database: MongoDB</p>
+                    <p>Front-end: {data.frontend}</p>
+                    <p>Back-end: {data.backend}</p>
+                    <p>Database: {data.database}</p>
                     <p>
                       <strong>Requirements:</strong>
                     </p>
@@ -123,7 +201,7 @@ const SplitCapstone = () => {
                         Any basic hints/links/reference sites to solve?
                       </strong>
                     </p>
-                    <p>
+                    {/* <p>
                       https://getbootstrap.com/docs/4.4/getting-started/introduction/
                     </p>
                     <p>https://www.chartjs.org/</p>
@@ -134,7 +212,13 @@ const SplitCapstone = () => {
                     <p>https://expressjs.com/</p>
                     <p>
                       <strong>Terms and Conditions?</strong>
-                    </p>
+                    </p> */}
+
+                    <>
+                      {data.websites.map((link) => (
+                        <p key={link._id}>{link.url}</p>
+                      ))}
+                    </>
                     <ul>
                       <li>
                         You agree to not share this confidential document with
@@ -177,25 +261,25 @@ const SplitCapstone = () => {
                 <tr>
                   <td class="codeName">Front-end Source code</td>
                   <td>
-                    <input type="text" class="codeSubmission" />
+                    <input type="text" class="codeSubmission"  onChange={(event) => setFscode(event.target.value)}/>
                   </td>
                 </tr>
                 <tr>
                   <td class="codeName">Front-end Deployed URL</td>
                   <td>
-                    <input type="text" class="codeSubmission" />
+                    <input type="text" class="codeSubmission"  onChange={(event) => setFdcode(event.target.value)}/>
                   </td>
                 </tr>
                 <tr>
                   <td class="codeName">Back-end Source code</td>
                   <td>
-                    <input type="text" class="codeSubmission" />
+                    <input type="text" class="codeSubmission"  onChange={(event) => setBscode(event.target.value)} />
                   </td>
                 </tr>
                 <tr>
                   <td class="codeName">Back-end Deployed URL</td>
                   <td>
-                    <input type="text" class="codeSubmission" />
+                    <input type="text" class="codeSubmission"  onChange={(event) => setBdcode(event.target.value)}/>
                   </td>
                 </tr>
                 <tr>
@@ -207,13 +291,18 @@ const SplitCapstone = () => {
                       type="text"
                       class="codeSubmission"
                       placeholder="leave your comments here"
+                      onChange={(event) => setComments(event.target.value)}
                     />
                   </td>
                 </tr>
               </tbody>
             </table>
             <div class="pl-2 my-0 align-self-end text-center">
-              <button class="btn reqbuttoncreate" type="submit">
+              <button
+                class="btn reqbuttoncreate"
+                type="submit"
+                onClick={handleSubmit}
+              >
                 Submit
               </button>
             </div>
