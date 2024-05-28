@@ -2,7 +2,7 @@ import React from "react";
 
 const SplitWebcode = (props) => {
   const data = props.data[props.index];
-  const subData = props.subdata[props.index];
+  const subData = props.subdata[props.index ];
 
   return (
     <div class="Body_body__wrapper__6cj6C">
